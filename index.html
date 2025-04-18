@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -23,7 +25,6 @@
     .row { display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #eee; padding: 8px 0; }
     .right .row { flex-direction: column; align-items: flex-start; }
     .subtotal { text-align: right; font-weight: bold; margin-top: 10px; }
-    .scrollable-list { max-height: 300px; overflow-y: auto; padding-right: 10px; }
   </style>
 </head>
 <body>
@@ -64,29 +65,12 @@
   <div class="container">
     <div class="left">
       <h3>99이벤트</h3>
-      <div class="scrollable-list">
-        <div class="row">
-          <span class="heart-btn" onclick="this.classList.toggle('liked')">&#9825;</span>
-          <input type="checkbox" onchange="addToCart(this, '주름보톡스(메디)한정가', 990)" />
-          <span>99E) 주름보톡스(메디)한정가</span>
-          <span>990원</span>
-          <input type="number" value="1" min="1" style="width:40px;" />
-        </div>
-        <div class="row">
-          <span class="heart-btn" onclick="this.classList.toggle('liked')">&#9825;</span>
-          <input type="checkbox" onchange="addToCart(this, '아큐주사(페이스 컨투어링) 3cc 한정가', 990)" />
-          <span>99E) 아큐주사(페이스 컨투어링) 3cc 한정가</span>
-          <span>990원</span>
-          <input type="number" value="1" min="1" style="width:40px;" />
-        </div>
-        <div class="row">
-          <span class="heart-btn" onclick="this.classList.toggle('liked')">&#9825;</span>
-          <input type="checkbox" onchange="addToCart(this, '염증주사 개당', 990)" />
-          <span>99E) 염증주사 개당</span>
-          <span>990원</span>
-          <input type="number" value="1" min="1" style="width:40px;" />
-        </div>
-        <!-- 다른 시술 목록들 추가 -->
+      <div class="row">
+        <span class="heart-btn" onclick="this.classList.toggle('liked')">&#9825;</span>
+        <input type="checkbox" onchange="addToCart(this, '써마지 FLX', 990000)" />
+        <span>써마지 FLX</span>
+        <span>990,000원</span>
+        <input type="number" value="1" min="1" style="width:40px;" />
       </div>
     </div>
     <div class="right">
@@ -108,7 +92,8 @@
       const ampm = hours >= 12 ? '오후' : '오전';
       hours = hours % 12 || 12;
       const mins = String(now.getMinutes()).padStart(2, '0');
-      document.getElementById('datetime').innerText = `${yyyy}-${mm}-${dd} ${day}\n${ampm} ${hours}:${mins}`;
+      document.getElementById('datetime').innerText = `${yyyy}-${mm}-${dd} ${day}
+${ampm} ${hours}:${mins}`;
     }
 
     function addToCart(checkbox, name, price) {
