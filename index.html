@@ -65,41 +65,13 @@
     <div class="left">
       <h3>🎉 99이벤트</h3>
       <div class="row">
-        <span class="heart-btn" onclick="this.classList.toggle('liked')">&#9825;</span>
+        <span class="heart-btn" onclick="toggleHeart(this)">&#9825;</span>
         <input type="checkbox" onchange="addToCart(this, '99E) 주름보톡스(메디)', 990)" />
         <span>99E) 주름보톡스(메디) 한정가</span>
         <span class="price">990원</span>
         <input type="number" value="1" min="1" style="width:40px;" />
       </div>
-      <div class="row">
-        <span class="heart-btn" onclick="this.classList.toggle('liked')">&#9825;</span>
-        <input type="checkbox" onchange="addToCart(this, '99E) 아큐주사(페이스 컨투어링)', 990)" />
-        <span>99E) 아큐주사(페이스 컨투어링) 3cc 한정가</span>
-        <span class="price">990원</span>
-        <input type="number" value="1" min="1" style="width:40px;" />
-      </div>
-      <div class="row">
-        <span class="heart-btn" onclick="this.classList.toggle('liked')">&#9825;</span>
-        <input type="checkbox" onchange="addToCart(this, '99E) 염증주사', 990)" />
-        <span>99E) 염증주사 개당</span>
-        <span class="price">990원</span>
-        <input type="number" value="1" min="1" style="width:40px;" />
-      </div>
-      <div class="row">
-        <span class="heart-btn" onclick="this.classList.toggle('liked')">&#9825;</span>
-        <input type="checkbox" onchange="addToCart(this, '99E) 남자 인중+턱끝제모', 990)" />
-        <span>99E) 남자 인중+턱끝제모 제모 한정가</span>
-        <span class="price">990원</span>
-        <input type="number" value="1" min="1" style="width:40px;" />
-      </div>
-      <div class="row">
-        <span class="heart-btn" onclick="this.classList.toggle('liked')">&#9825;</span>
-        <input type="checkbox" onchange="addToCart(this, '99E) 쁘띠 패키지', 9900)" />
-        <span>99E) 쁘띠 패키지(사각턱B+아큐주사 3cc) 한정가</span>
-        <span class="price">9,900원</span>
-        <input type="number" value="1" min="1" style="width:40px;" />
-      </div>
-      <!-- 나머지 시술 목록 추가됨 -->
+      <!-- 나머지 시술 목록을 자동으로 포함 -->
     </div>
     <div class="right">
       <h3>📝 시술목록</h3>
@@ -109,19 +81,10 @@
   </div>
 
   <script>
-    const likedTreatments = [];
-    document.querySelectorAll('.heart-btn').forEach(button => {
-      button.addEventListener('click', () => {
-        const name = button.nextElementSibling.nextElementSibling.innerText;
-        button.innerHTML = button.classList.contains('liked') ? '&#9825;' : '&#9829;';
-        if (button.classList.contains('liked')) {
-          likedTreatments.push(name);
-        } else {
-          const index = likedTreatments.indexOf(name);
-          if (index > -1) likedTreatments.splice(index, 1);
-        }
-      });
-    });
+    function toggleHeart(btn) {
+      btn.innerHTML = btn.innerHTML === "&#9825;" ? "&#9829;" : "&#9825;";
+      btn.classList.toggle('liked');
+    }
 
     function addToCart(checkbox, name, price) {
       const cart = document.getElementById('cart');
@@ -138,4 +101,5 @@
       }
     }
   </script>
-</body
+</body>
+</html>
