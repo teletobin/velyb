@@ -1,217 +1,76 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8" />
-  <title>velyB 클리닉</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet" />
-  <style>
-    body { font-family: 'Noto Sans KR', sans-serif; margin: 0; background: #fff; color: #303030; }
-    .top-bar { display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; }
-    .date-time { font-size: 13px; white-space: pre-line; }
-    .logo img { height: 40px; }
-    .icons { display: flex; gap: 14px; }
-    .icons img { width: 22px; height: 22px; cursor: pointer; }
-    header { background: #FFAEC9; padding: 12px; }
-    .menu-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 6px; }
-    .menu-button { background: white; color: #303030; border: none; border-radius: 20px; padding: 6px 12px; font-size: 13px; cursor: pointer; }
-    .container { padding: 20px; display: flex; gap: 20px; }
-    .left { flex: 1; border: 2px solid #FFAEC9; border-radius: 10px; padding: 10px; overflow-y: auto; max-height: 500px; background: #fff; }
-    .right { flex: 1; border: 2px solid #FFAEC9; border-radius: 10px; padding: 10px; background: #fff; }
-    .row { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #eee; padding: 8px 0; }
-    .left .row span, .left .row input[type="checkbox"] { text-align: left; flex: 1; }
-    .left .row span.price, .left .row input[type="number"] { text-align: right; flex: 0.3; }
-    .heart-btn { cursor: pointer; color: #ccc; font-size: 18px; flex: 0.1; text-align: left; }
-    .heart-btn.liked { color: #FFAEC9; }
-    .subtotal { text-align: right; font-weight: bold; margin-top: 10px; }
-  </style>
-</head>
-<body>
-  <div class="top-bar">
-    <div class="date-time" id="datetime">-</div>
-    <div class="logo"><img src="logo.png" alt="velyB logo" /></div>
-    <div class="icons">
-      <img src="list.png" alt="list" />
-      <img src="love.png" alt="love" />
-      <img src="today.png" alt="today" />
-      <a href="https://github.com/teletobin" target="_blank"><img src="settings.png" alt="settings" /></a>
+<div class="container" style="height: calc(100vh - 140px);">
+  <div class="left" style="overflow-y: auto; height: 100%;">
+    <h3>99이벤트</h3>
+    <div class="row">
+      <span class="heart-btn" onclick="toggleHeart(this)">&#9825;</span>
+      <input type="checkbox" onchange="addToCart(this, '써마지 FLX 리프팅 300샷', 990000)" />
+      <span style="text-align: left;">써마지 FLX 리프팅 300샷</span>
+      <span class="price" style="text-align: right;">990,000원</span>
+      <input type="number" value="1" min="1" style="width: 50px; text-align: right;" onchange="updateCart('써마지 FLX 리프팅 300샷')" />
+    </div>
+    <div class="row">
+      <span class="heart-btn" onclick="toggleHeart(this)">&#9825;</span>
+      <input type="checkbox" onchange="addToCart(this, '리쥬란힐러 2cc 체험가', 99000)" />
+      <span style="text-align: left;">리쥬란힐러 2cc 체험가</span>
+      <span class="price" style="text-align: right;">99,000원</span>
+      <input type="number" value="1" min="1" style="width: 50px; text-align: right;" onchange="updateCart('리쥬란힐러 2cc 체험가')" />
     </div>
   </div>
-
-  <header>
-    <div class="menu-row">
-      <button class="menu-button">99이벤트</button>
-      <button class="menu-button">꽃봄혜택</button>
-      <button class="menu-button">첫시술 이벤트</button>
-      <button class="menu-button">여성제모</button>
-      <button class="menu-button">남성제모</button>
-      <button class="menu-button">보톡스</button>
-      <button class="menu-button">필러</button>
-      <button class="menu-button">다이어트</button>
-    </div>
-    <div class="menu-row">
-      <button class="menu-button">레이저</button>
-      <button class="menu-button">피부트러블</button>
-      <button class="menu-button">리프팅</button>
-      <button class="menu-button">실리프팅</button>
-      <button class="menu-button">부스터시술</button>
-      <button class="menu-button">피부관리</button>
-      <button class="menu-button">수액주사</button>
-      <button class="menu-button">기타</button>
-    </div>
-  </header>
-  <div class="container" style="height: calc(100vh - 140px);">
-    <div class="left" style="overflow-y: auto; height: 100%;">
-      <h3>99이벤트</h3>
-      <!-- 아래 모든 시술 목록 포함 -->
-      <div class="row">
-        <span class="heart-btn" onclick="toggleHeart(this)">&#9825;</span>
-        <input type="checkbox" onchange="addToCart(this, '99E) 주름보톡스(메디)', 990)" />
-        <span style="text-align: left;">99E) 주름보톡스(메디) 한정가</span>
-        <span class="price" style="text-align: right;">990원</span>
-        <input type="number" value="1" min="1" style="width:40px; text-align: right;" />
-      </div>
-      <div class="row">
-        <span class="heart-btn" onclick="toggleHeart(this)">&#9825;</span>
-        <input type="checkbox" onchange="addToCart(this, '99E) 아큐주사(페이스 컨투어링)', 990)" />
-        <span style="text-align: left;">99E) 아큐주사(페이스 컨투어링) 3cc 한정가</span>
-        <span class="price" style="text-align: right;">990원</span>
-        <input type="number" value="1" min="1" style="width:40px; text-align: right;" />
-      </div>
-      <div class="row">
-        <span class="heart-btn" onclick="toggleHeart(this)">&#9825;</span>
-        <input type="checkbox" onchange="addToCart(this, '99E) 염증주사', 990)" />
-        <span style="text-align: left;">99E) 염증주사 개당</span>
-        <span class="price" style="text-align: right;">990원</span>
-        <input type="number" value="1" min="1" style="width:40px; text-align: right;" />
-      </div>
-      <div class="row">
-        <span class="heart-btn" onclick="toggleHeart(this)">&#9825;</span>
-        <input type="checkbox" onchange="addToCart(this, '99E) 남자 인중+턱끝제모', 990)" />
-        <span style="text-align: left;">99E) 남자 인중+턱끝제모 제모 한정가</span>
-        <span class="price" style="text-align: right;">990원</span>
-        <input type="number" value="1" min="1" style="width:40px; text-align: right;" />
-      </div>
-      <div class="row">
-        <span class="heart-btn" onclick="toggleHeart(this)">&#9825;</span>
-        <input type="checkbox" onchange="addToCart(this, '99E) 쁘띠 패키지', 9900)" />
-        <span style="text-align: left;">99E) 쁘띠 패키지(사각턱B+아큐주사 3cc) 한정가</span>
-        <span class="price" style="text-align: right;">9,900원</span>
-        <input type="number" value="1" min="1" style="width:40px; text-align: right;" />
-      </div>
-      <div class="row">
-        <span class="heart-btn" onclick="toggleHeart(this)">&#9825;</span>
-        <input type="checkbox" onchange="addToCart(this, '99E) 인모드FX', 9900)" />
-        <span style="text-align: left;">99E) 인모드FX 1부위+1부위 한정가</span>
-        <span class="price" style="text-align: right;">9,900원</span>
-        <input type="number" value="1" min="1" style="width:40px; text-align: right;" />
-      </div>
-      <div class="row">
-        <span class="heart-btn" onclick="toggleHeart(this)">&#9825;</span>
-        <input type="checkbox" onchange="addToCart(this, '99E) 슈링크 울트라F', 13000)" />
-        <span style="text-align: left;">99E) 슈링크 울트라F MP 모드 100샷 한정가</span>
-        <span class="price" style="text-align: right;">13,000원</span>
-        <input type="number" value="1" min="1" style="width:40px; text-align: right;" />
-      </div>
-      <div class="row">
-        <span class="heart-btn" onclick="toggleHeart(this)">&#9825;</span>
-        <input type="checkbox" onchange="addToCart(this, '99E) 레이저토닝', 9900)" />
-        <span style="text-align: left;">99E) 레이저토닝 1회+1회 한정가</span>
-        <span class="price" style="text-align: right;">9,900원</span>
-        <input type="number" value="1" min="1" style="width:40px; text-align: right;" />
-      </div>
-      <div class="row">
-        <span class="heart-btn" onclick="toggleHeart(this)">&#9825;</span>
-        <input type="checkbox" onchange="addToCart(this, '99E) 아쿠아필', 9900)" />
-        <span style="text-align: left;">99E) 아쿠아필 1회+1회 한정가</span>
-        <span class="price" style="text-align: right;">9,900원</span>
-        <input type="number" value="1" min="1" style="width:40px; text-align: right;" />
-      </div>
-      <div class="row">
-        <span class="heart-btn" onclick="toggleHeart(this)">&#9825;</span>
-        <input type="checkbox" onchange="addToCart(this, '99E) 수액주사', 9900)" />
-        <span style="text-align: left;">99E) 수액주사(글루타치온/신데렐라) 체험가</span>
-        <span class="price" style="text-align: right;">9,900원</span>
-        <input type="number" value="1" min="1" style="width:40px; text-align: right;" />
-      </div>
-      <div class="row">
-        <span class="heart-btn" onclick="toggleHeart(this)">&#9825;</span>
-        <input type="checkbox" onchange="addToCart(this, '99E) 수액주사', 9900)" />
-        <span style="text-align: left;">99E) 여자 브라질리언 제모 한정가</span>
-        <span class="price" style="text-align: right;">9,900원</span>
-        <input type="number" value="1" min="1" style="width:40px; text-align: right;" />
-      </div>
-      <div class="row">
-        <span class="heart-btn" onclick="toggleHeart(this)">&#9825;</span>
-        <input type="checkbox" onchange="addToCart(this, '99E) 필러(국산 아띠에르)', 99000)" />
-        <span style="text-align: left;">99E) 필러(국산 아띠에르) 1cc+1cc</span>
-        <span class="price" style="text-align: right;">99,000원</span>
-        <input type="number" value="1" min="1" style="width:40px; text-align: right;" />
-      </div>
-      <div class="row">
-        <span class="heart-btn" onclick="toggleHeart(this)">&#9825;</span>
-        <input type="checkbox" onchange="addToCart(this, '99E) 필러(국산 아띠에르)', 99000)" />
-        <span style="text-align: left;">99E) 쥬베룩스킨 1cc+1cc</span>
-        <span class="price" style="text-align: right;">99,000원</span>
-        <input type="number" value="1" min="1" style="width:40px; text-align: right;" />
-     </div>
-      <div class="row">
-        <span class="heart-btn" onclick="toggleHeart(this)">&#9825;</span>
-        <input type="checkbox" onchange="addToCart(this, '99E) 필러(국산 아띠에르)', 99000)" />
-        <span style="text-align: left;">99E) 쥬베룩스킨 1cc+1cc</span>
-        <span class="price" style="text-align: right;">99,000원</span>
-        <input type="number" value="1" min="1" style="width:40px; text-align: right;" />
-     </div>
-      <div class="row">
-        <span class="heart-btn" onclick="toggleHeart(this)">&#9825;</span>
-        <input type="checkbox" onchange="addToCart(this, '99E) 필러(국산 아띠에르)', 99000)" />
-        <span style="text-align: left;">99E) 포텐자+진정관리+팁 별도 한정가</span>
-        <span class="price" style="text-align: right;">99,000원</span>
-        <input type="number" value="1" min="1" style="width:40px; text-align: right;" />
-      <div class="right" style="overflow-y: auto; height: 100%;">
-      </div>
-        <div class="row">
-        <span class="heart-btn" onclick="toggleHeart(this)">&#9825;</span>
-        <input type="checkbox" onchange="addToCart(this, '99E) 필러(국산 아띠에르)', 99000)" />
-        <span style="text-align: left;">99E) 블루로즈 포르테 리프팅(360도 나선형 코그실) 1줄+1줄</span>
-        <span class="price" style="text-align: right;">99,000원</span>
-        <input type="number" value="1" min="1" style="width:40px; text-align: right;" />
-    <div class="right" style="overflow-y: auto; height: 100%;">
-       </div>
-      <div class="row">
-        <span class="heart-btn" onclick="toggleHeart(this)">&#9825;</span>
-        <input type="checkbox" onchange="addToCart(this, '99E) 필러(국산 아띠에르)', 99000)" />
-        <span style="text-align: left;">99E) 써마지 FLX 300샷</span>
-        <span class="price" style="text-align: right;">990,000원</span>
-        <input type="number" value="1" min="1" style="width:40px; text-align: right;" />
-      <div class="right" style="overflow-y: auto; height: 100%;">
-      </div>
-      <h3>시술목록</h3>
-      <div id="cart"></div>
-      <div class="subtotal" id="total">총 결제금액 <strong>0원</strong></div>
-    </div>
+  <div class="right" style="overflow-y: auto; height: 100%;">
+    <h3>시술목록</h3>
+    <div id="cart"></div>
+    <div class="subtotal" id="total">총 결제금액 <strong>0원</strong></div>
   </div>
+</div>
 
-  <script>
-    function toggleHeart(btn) {
-      btn.innerHTML = btn.innerHTML === "&#9825;" ? "&#9829;" : "&#9825;";
-      btn.style.color = btn.innerHTML === "&#9829;" ? "#303030" : "#ccc";
-      btn.classList.toggle('liked');
+<script>
+  function toggleHeart(btn) {
+    btn.innerHTML = btn.innerHTML === "&#9825;" ? "&#9829;" : "&#9825;";
+    btn.style.color = btn.innerHTML === "&#9829;" ? "#303030" : "#ccc";
+    btn.classList.toggle("liked");
+  }
+
+  function addToCart(checkbox, name, price) {
+    const cart = document.getElementById("cart");
+    if (checkbox.checked) {
+      const item = document.createElement("div");
+      item.className = "row";
+      item.setAttribute("data-name", name);
+      item.innerHTML = `
+        <div>${name}</div>
+        <div>합계: ${(price * 1.1).toLocaleString()}원 (부가세 포함)</div>`;
+      cart.appendChild(item);
+      recalcTotal();
+    } else {
+      const el = document.querySelector(`#cart .row[data-name='${name}']`);
+      if (el) el.remove();
+      recalcTotal();
     }
+  }
 
-    function addToCart(checkbox, name, price) {
-      const cart = document.getElementById('cart');
-      if (checkbox.checked) {
-        const item = document.createElement('div');
-        item.className = 'row';
-        item.innerHTML = `<div>${name}</div><div>${price.toLocaleString()}원</div>`;
-        cart.appendChild(item);
-      } else {
-        const el = cart.querySelector(`div:contains('${name}')`);
-        if (el) el.remove();
+  function updateCart(name) {
+    const rows = document.querySelectorAll("#cart .row");
+    rows.forEach((row) => {
+      if (row.getAttribute("data-name") === name) {
+        const price = row.getAttribute("data-price");
+        const qty = document.querySelector(`input[type="number"][onchange="updateCart('${name}')"]`).value;
+        row.querySelector(".subtotal").innerText = `합계: ${(
+          price *
+          qty *
+          1.1
+        ).toLocaleString()}원 (부가세 포함)`;
       }
-    }
-  </script>
+    });
+    recalcTotal();
+  }
 
-</body>
-</html>
+  function recalcTotal() {
+    const rows = document.querySelectorAll("#cart .row");
+    let total = 0;
+    rows.forEach((row) => {
+      const subtotal = row.innerText.match(/([\d,]+)원/);
+      if (subtotal) total += parseInt(subtotal[1].replace(/,/g, ""));
+    });
+    document.getElementById("total").innerHTML = `총 결제금액 <strong>${total.toLocaleString()}원</strong>`;
+  }
+</script>
