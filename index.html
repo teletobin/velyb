@@ -60,21 +60,20 @@
       <button class="menu-button">기타</button>
     </div>
   </header>
-
-  <div class="container">
-    <div class="left">
-      <h3>🎉 99이벤트</h3>
+  <div class="container" style="height: calc(100vh - 140px);">
+    <div class="left" style="overflow-y: auto; height: 100%;">
+      <h3>99이벤트</h3>
       <div class="row">
         <span class="heart-btn" onclick="toggleHeart(this)">&#9825;</span>
         <input type="checkbox" onchange="addToCart(this, '99E) 주름보톡스(메디)', 990)" />
-        <span>99E) 주름보톡스(메디) 한정가</span>
-        <span class="price">990원</span>
-        <input type="number" value="1" min="1" style="width:40px;" />
+        <span style="text-align: left;">99E) 주름보톡스(메디) 한정가</span>
+        <span class="price" style="text-align: right;">990원</span>
+        <input type="number" value="1" min="1" style="width:40px; text-align: right;" />
       </div>
-      <!-- 나머지 시술 목록을 자동으로 포함 -->
+      <!-- 나머지 시술 목록을 동일한 형식으로 추가 -->
     </div>
-    <div class="right">
-      <h3>📝 시술목록</h3>
+    <div class="right" style="overflow-y: auto; height: 100%;">
+      <h3>시술목록</h3>
       <div id="cart"></div>
       <div class="subtotal" id="total">총 결제금액 <strong>0원</strong></div>
     </div>
@@ -83,6 +82,7 @@
   <script>
     function toggleHeart(btn) {
       btn.innerHTML = btn.innerHTML === "&#9825;" ? "&#9829;" : "&#9825;";
+      btn.style.color = btn.innerHTML === "&#9829;" ? "#303030" : "#ccc";
       btn.classList.toggle('liked');
     }
 
@@ -91,7 +91,10 @@
       if (checkbox.checked) {
         const item = document.createElement('div');
         item.className = 'row';
-        item.innerText = `${name} - ${price}원`;
+        item.innerHTML = `
+          <div style="text-align: left;">${name}</div>
+          <div style="text-align: right;">${Math.round(price * 1.1).toLocaleString()}원 (부가세 포함)</div>
+        `;
         cart.appendChild(item);
       } else {
         const items = cart.querySelectorAll('.row');
@@ -99,7 +102,20 @@
           if (item.innerText.includes(name)) item.remove();
         });
       }
+      recalcTotal();
+    }
+
+    function recalcTotal() {
+      const rows = document.querySelectorAll('#cart .row');
+      let total = 0;
+      rows.forEach(row => {
+        const priceText = row.querySelector('div:last-child').innerText.match(/([\d,]+)원/);
+        if (priceText) total += parseInt(priceText[1].replace(/,/g, ''));
+      });
+      document.getElementById('total').innerHTML = `총 결제금액 <strong>${total.toLocaleString()}원</strong>`;
     }
   </script>
+
+
 </body>
 </html>
