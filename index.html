@@ -2,61 +2,42 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8" />
-   <title>velyB 클리닉</title>
-   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet" />
-   <style>
-     body { font-family: 'Noto Sans KR', sans-serif; margin: 0; background: #fff; color: #303030; }
-     .top-bar { display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; }
-     .date-time { font-size: 13px; white-space: pre-line; }
-     .logo img { height: 40px; }
-     .icons { display: flex; gap: 14px; }
-     .icons img { width: 22px; height: 22px; cursor: pointer; }
-     header { background: #FFAEC9; padding: 12px; }
-     .menu-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 6px; }
-     .menu-button { background: white; color: #303030; border: none; border-radius: 20px; padding: 6px 12px; font-size: 13px; cursor: pointer; }
-     .container { padding: 20px; display: flex; gap: 20px; }
-     .left, .right { flex: 1; border: 2px solid #FFAEC9; border-radius: 16px; padding: 20px; }
-     .right { border-width: 6px; }
-     .heart-btn { cursor: pointer; color: #ccc; font-size: 18px; }
-     .heart-btn.liked { color: #FFAEC9; }
-     .row { display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #eee; padding: 8px 0; }
-     .right .row { flex-direction: column; align-items: flex-start; }
-     .subtotal { text-align: right; font-weight: bold; margin-top: 10px; }
-   </style>
- </head>
- <body>
-   <div class="top-bar">
-     <div class="date-time" id="datetime">-</div>
-     <div class="logo"><img src="logo.png" alt="velyB logo" /></div>
- @@ -33,6 +60,8 @@
-       <button class="menu-button">기타</button>
-     </div>
-   </header>
-    <div class="menu-row">
-      <button class="menu-button">99이벤트</button>
-      <button class="menu-button">꽃봄혜택</button>
-      <button class="menu-button">첫시술 이벤트</button>
-      <button class="menu-button">여성제모</button>
-      <button class="menu-button">남성제모</button>
-      <button class="menu-button">보톡스</button>
-      <button class="menu-button">필러</button>
-      <button class="menu-button">다이어트</button>
+  <meta charset="UTF-8" />
+  <title>velyB 클리닉</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet" />
+  <style>
+    body { font-family: 'Noto Sans KR', sans-serif; margin: 0; background: #fff; color: #303030; }
+    .top-bar { display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; }
+    .date-time { font-size: 13px; white-space: pre-line; }
+    .logo img { height: 40px; }
+    .icons { display: flex; gap: 14px; }
+    .icons img { width: 22px; height: 22px; cursor: pointer; }
+    header { background: #FFAEC9; padding: 12px; }
+    .menu-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 6px; }
+    .menu-button { background: white; color: #303030; border: none; border-radius: 20px; padding: 6px 12px; font-size: 13px; cursor: pointer; }
+    .container { padding: 20px; display: flex; gap: 20px; }
+    .left, .right { flex: 1; border: 2px solid #FFAEC9; border-radius: 16px; padding: 20px; }
+    .right { border-width: 6px; }
+    .heart-btn { cursor: pointer; color: #ccc; font-size: 18px; }
+    .heart-btn.liked { color: #FFAEC9; }
+    .row { display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #eee; padding: 8px 0; }
+    .right .row { flex-direction: column; align-items: flex-start; }
+    .subtotal { text-align: right; font-weight: bold; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <div class="top-bar">
+    <div class="date-time" id="datetime">-</div>
+    <div class="logo"><img src="logo.png" alt="velyB logo" /></div>
+    <div class="icons">
+      <img src="list.png" alt="list" />
+      <img src="love.png" alt="love" />
+      <img src="today.png" alt="today" />
+      <a href="https://github.com/teletobin" target="_blank"><img src="settings.png" alt="settings" /></a>
     </div>
-    <div class="menu-row">
-      <button class="menu-button">레이저</button>
-      <button class="menu-button">피부트러블</button>
-      <button class="menu-button">리프팅</button>
-      <button class="menu-button">실리프팅</button>
-      <button class="menu-button">부스터시술</button>
-      <button class="menu-button">피부관리</button>
-      <button class="menu-button">수액주사</button>
-      <button class="menu-button">기타</button>
-    </div>
-  </header>
-
-
+  </div>
+  <header>
 <div class="container" style="display: flex; gap: 20px; padding: 20px;">
   <!-- 왼쪽: 시술 항목 -->
   <div style="flex: 1; border: 2px solid #FFAEC9; border-radius: 16px; padding: 20px; height: 300px; overflow-y: auto;">
