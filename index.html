@@ -140,9 +140,17 @@ td:nth-child(4), td:nth-child(5), td:nth-child(6) {
 }
 
 .qty-input {
-  width: 20px; /* 최소화된 너비 */
-  text-align: center; /* 숫자 중앙 정렬 */
+  width: 20px;
+  text-align: center;
+  -moz-appearance: textfield; /* 화살표 제거 */
+  -webkit-appearance: textfield; /* 화살표 제거 */
 }
+.qty-input::-webkit-inner-spin-button,
+.qty-input::-webkit-outer-spin-button {
+  -webkit-appearance: none; /* 화살표 제거 */
+  margin: 0; /* 여백 제거 */
+}
+
    .final-total-wrapper {
   text-align: right; /* 텍스트 오른쪽 정렬 */
   margin-top: 10px;
