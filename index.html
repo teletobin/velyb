@@ -69,6 +69,61 @@
       <button class="menu-button">기타</button>
     </div>
   </header>
+    <style>
+    /* 글씨 크기 조정 및 기본 스타일 */
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      margin: 0;
+      background: #fff;
+      color: #303030;
+      font-size: calc(16px + 0.5vw); /* 화면 너비에 따른 글씨 크기 조정 */
+    }
+
+    .container {
+      display: flex;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .left, .right {
+      flex: 1;
+      border: 2px solid #FFAEC9;
+      border-radius: 16px;
+      padding: 20px;
+      max-height: 400px;
+      overflow-y: auto; /* 세로 스크롤 활성화 */
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #f8f8f8;
+    }
+
+    /* 가격, 횟수, 합계 오른쪽 정렬 */
+    td:nth-child(4), td:nth-child(5), td:nth-child(6) {
+      text-align: right;
+    }
+
+    /* 하트 스타일 */
+    .heart-btn {
+      cursor: pointer;
+      font-size: 18px;
+      color: #ccc;
+    }
+
+    .heart-btn.liked {
+      color: #FFAEC9; /* 하트 클릭 시 색상 변경 */
+    }
   </style>
 </head>
 <body>
@@ -83,7 +138,7 @@
           <th>시술명</th>
           <th>가격</th>
           <th>횟수</th>
-          <th>부가세 포함 합계</th>
+          <th>합계</th>
         </tr>
       </thead>
       <tbody>
@@ -163,14 +218,14 @@
     </table>
   </div>
   <div class="right">
-    <h2>선택한 항목</h2>
+    <h2>시술목록</h2>
     <table id="rightTable">
       <thead>
         <tr>
           <th>시술명</th>
           <th>가격</th>
           <th>횟수</th>
-          <th>부가세 포함 합계</th>
+          <th>합계</th>
         </tr>
       </thead>
       <tbody>
@@ -179,3 +234,15 @@
     </table>
   </div>
 </div>
+
+  <script>
+    // 하트 클릭 시 색 변경 기능
+    document.querySelectorAll(".heart-btn").forEach((heart) => {
+      heart.addEventListener("click", () => {
+        heart.classList.toggle("liked");
+        heart.textContent = heart.classList.contains("liked") ? '❤' : '♡';
+      });
+    });
+  </script>
+</body>
+</html>
