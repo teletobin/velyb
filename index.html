@@ -20,47 +20,9 @@
       padding: 10px 20px;
     }
 
-    .date-time {
-      font-size: 13px;
-      white-space: pre-line;
-    }
-
-    .logo img {
-      height: 40px;
-    }
-
-    .icons {
-      display: flex;
-      gap: 14px;
-    }
-
-    .icons img {
-      width: 22px;
-      height: 22px;
-      cursor: pointer;
-    }
-
     header {
       background: #FFAEC9;
       padding: 12px;
-    }
-
-    .menu-row {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 8px;
-      margin-bottom: 6px;
-    }
-
-    .menu-button {
-      background: white;
-      color: #303030;
-      border: none;
-      border-radius: 20px;
-      padding: 6px 12px;
-      font-size: 13px;
-      cursor: pointer;
     }
 
     .container {
@@ -80,24 +42,26 @@
 
     .right {
       flex: 1;
-      border: 2px solid #FFAEC9;
+      border: 1px solid #FFAEC9;
       border-radius: 16px;
       padding: 20px;
     }
 
+    /* 하트 버튼 */
     .heart-btn {
       cursor: pointer;
       font-size: 18px;
-      color: transparent;
-      border: 2px solid #FFAEC9;
+      color: transparent; /* 기본 하트는 색이 투명 */
+      border: 2px solid #FFAEC9; /* 핑크색 테두리 */
       border-radius: 50%;
       padding: 5px;
+      display: inline-block;
     }
 
     .heart-btn.liked {
-      color: #FFAEC9;
-      background-color: #FFAEC9;
-      border: none;
+      color: #FFAEC9; /* 꽉 찬 핑크색 하트 */
+      background-color: #FFAEC9; /* 꽉 찬 핑크색 배경 */
+      border: none; /* 테두리 제거 */
     }
 
     .row {
@@ -121,6 +85,14 @@
       text-align: right;
       font-weight: bold;
       margin-top: 20px;
+    }
+
+    .left h3 {
+      margin-top: 0;
+    }
+
+    .row span {
+      font-size: 11px; /* 시술명 텍스트 크기 줄임 */
     }
   </style>
 </head>
@@ -167,48 +139,103 @@
     <div class="left">
       <h3>99이벤트</h3>
 
-      <!-- 첫 번째 시술 항목 -->
+      <!-- 시술 항목 1 -->
       <div class="row">
         <span class="heart-btn" onclick="this.classList.toggle('liked')">&#9825;</span>
-        <input type="checkbox" onchange="addToCart(this, '써마지 FLX', 990000)" />
-        <span>써마지 FLX</span>
-        <span>990,000원</span>
+        <input type="checkbox" onchange="addToCart(this, '주름보톡스(메디)한정가', 990)" />
+        <span>주름보톡스(메디)한정가</span>
+        <span>990원</span>
         <input type="number" value="1" min="1" />
       </div>
 
-      <!-- 두 번째 시술 항목 -->
+      <!-- 시술 항목 2 -->
       <div class="row">
         <span class="heart-btn" onclick="this.classList.toggle('liked')">&#9825;</span>
-        <input type="checkbox" onchange="addToCart(this, '리쥬란힐러 2cc 체험가', 99000)" />
-        <span>리쥬란힐러 2cc 체험가</span>
-        <span>99,000원</span>
-        <input type="number" value="2" min="1" />
+        <input type="checkbox" onchange="addToCart(this, '아큐주사(페이스 컨투어링) 3cc 한정가', 990)" />
+        <span>아큐주사(페이스 컨투어링) 3cc 한정가</span>
+        <span>990원</span>
+        <input type="number" value="1" min="1" />
       </div>
+
+      <!-- 시술 항목 3 -->
+      <div class="row">
+        <span class="heart-btn" onclick="this.classList.toggle('liked')">&#9825;</span>
+        <input type="checkbox" onchange="addToCart(this, '염증주사 개당', 990)" />
+        <span>염증주사 개당</span>
+        <span>990원</span>
+        <input type="number" value="1" min="1" />
+      </div>
+
+      <!-- 시술 항목 4 -->
+      <div class="row">
+        <span class="heart-btn" onclick="this.classList.toggle('liked')">&#9825;</span>
+        <input type="checkbox" onchange="addToCart(this, '남자 인중+턱끝제모 제모 한정가', 990)" />
+        <span>남자 인중+턱끝제모 제모 한정가</span>
+        <span>990원</span>
+        <input type="number" value="1" min="1" />
+      </div>
+
+      <!-- 시술 항목 5 -->
+      <div class="row">
+        <span class="heart-btn" onclick="this.classList.toggle('liked')">&#9825;</span>
+        <input type="checkbox" onchange="addToCart(this, '쁘띠 패키지(사각턱B+아큐주사 3cc) 한정가', 9900)" />
+        <span>쁘띠 패키지(사각턱B+아큐주사 3cc) 한정가</span>
+        <span>9,900원</span>
+        <input type="number" value="1" min="1" />
+      </div>
+
+      <!-- 시술 항목 6 -->
+      <div class="row">
+        <span class="heart-btn" onclick="this.classList.toggle('liked')">&#9825;</span>
+        <input type="checkbox" onchange="addToCart(this, '인모드FX 1부위+1부위 한정가', 9900)" />
+        <span>인모드FX 1부위+1부위 한정가</span>
+        <span>9,900원</span>
+        <input type="number" value="1" min="1" />
+      </div>
+
+      <!-- 시술 항목 7 -->
+      <div class="row">
+        <span class="heart-btn" onclick="this.classList.toggle('liked')">&#9825;</span>
+        <input type="checkbox" onchange="addToCart(this, '슈링크 울트라F MP 모드 100샷 한정가', 13000)" />
+        <span>슈링크 울트라F MP 모드 100샷 한정가</span>
+        <span>13,000원</span>
+        <input type="number" value="1" min="1" />
+      </div>
+
+      <!-- 시술 항목 8 -->
+      <div class="row">
+        <span class="heart-btn" onclick="this.classList.toggle('liked')">&#9825;</span>
+        <input type="checkbox" onchange="addToCart(this, '레이저토닝 1회+1회 한정가', 9900)" />
+        <span>레이저토닝 1회+1회 한정가</span>
+        <span>9,900원</span>
+        <input type="number" value="1" min="1" />
+      </div>
+
+      <!-- 시술 항목 9 -->
+      <div class="row">
+        <span class="heart-btn" onclick="this.classList.toggle('liked')">&#9825;</span>
+        <input type="checkbox" onchange="addToCart(this, '아쿠아필 1회+1회 한정가', 9900)" />
+        <span>아쿠아필 1회+1회 한정가</span>
+        <span>9,900원</span>
+        <input type="number" value="1" min="1" />
+      </div>
+
+      <!-- 시술 항목 10 -->
+      <div class="row">
+        <span class="heart-btn" onclick="this.classList.toggle('liked')">&#9825;</span>
+        <input type="checkbox" onchange="addToCart(this, '수액주사(글루타치온/신데렐라) 체험가', 9900)" />
+        <span>수액주사(글루타치온/신데렐라) 체험가</span>
+        <span>9,900원</span>
+        <input type="number" value="1" min="1" />
+      </div>
+
     </div>
 
     <!-- 오른쪽: 시술목록 -->
     <div class="right">
       <h3>📝 시술목록</h3>
 
-      <!-- 선택된 항목 목록 -->
-      <div class="row">
-        <span>써마지 FLX</span>
-        <span>990,000원</span>
-        <span>1</span>
-        <span>1,089,000원</span>
-      </div>
-
-      <div class="row">
-        <span>리쥬란힐러 2cc 체험가</span>
-        <span>99,000원</span>
-        <span>2</span>
-        <span>217,800원</span>
-      </div>
-
-      <!-- 총 결제금액 -->
-      <div class="subtotal">
-        총 결제금액 <strong>1,306,800원</strong>
-      </div>
+      <!-- 선택된 항목 목록 (체크된 항목만) -->
     </div>
   </div>
 
@@ -220,9 +247,40 @@
       });
     });
 
-    // 장바구니 항목 추가 (추후 기능 추가 필요)
+    // 체크박스가 선택된 시술을 우측 시술목록에 추가하는 함수
     function addToCart(checkbox, name, price) {
-      console.log(name + " 항목 추가됨, 가격: " + price);
+      const cart = document.querySelector('.right');
+      const total = document.querySelector('.subtotal');
+
+      // 체크된 항목만 추가
+      if (checkbox.checked) {
+        const item = document.createElement('div');
+        item.className = 'row';
+        item.innerHTML = `
+          <span>${name}</span>
+          <span>${price}원</span>
+          <span>1</span>
+          <span>${price}원</span>
+        `;
+        cart.appendChild(item);
+      } else {
+        // 체크 해제 시 항목 삭제
+        const items = cart.querySelectorAll('.row');
+        items.forEach(item => {
+          if (item.querySelector('span').textContent === name) {
+            item.remove();
+          }
+        });
+      }
+
+      // 총 결제금액 계산
+      let totalAmount = 0;
+      const items = cart.querySelectorAll('.row');
+      items.forEach(item => {
+        const itemPrice = item.querySelectorAll('span')[1].textContent.replace('원', '').replace(',', '');
+        totalAmount += parseInt(itemPrice);
+      });
+      total.innerHTML = `총 결제금액 <strong>${totalAmount.toLocaleString()}원</strong>`;
     }
   </script>
 
