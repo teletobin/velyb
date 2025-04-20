@@ -140,8 +140,8 @@ td:nth-child(4), td:nth-child(5), td:nth-child(6) {
 }
 
 .qty-input {
-  width: 40px;
-  text-align: center;
+  width: 15px; /* 최소화된 너비 */
+  text-align: center; /* 숫자 중앙 정렬 */
 }
   </style>
 </head>
@@ -266,61 +266,57 @@ td:nth-child(4), td:nth-child(5), td:nth-child(6) {
   </script>
   <script>
     // 좌측 횟수 수정 및 합계 업데이트
-    document.querySelectorAll(".qty-input").forEach((input) => {
-      input.addEventListener("input", (event) => {
-        const row = event.target.closest("tr");
-        const price = parseInt(row.cells[1].textContent.replace(/,/g, ""));
-        const quantity = parseInt(event.target.value);
-        row.cells[3].textContent = (price * quantity).toLocaleString();
-      });
-    });
-
-    // 좌측 체크박스 연동하여 우측 표 업데이트
+document.querySelectorAll(".qty-input").forEach((input) => {
+  input.addEventListener("input", (event) => {
+    const row = event.target.closest("tr");
+    const price = parseInt(row.cells[3].textContent.replace(/,/g, "")); // 가격 (4열)
+    const quantity = parseInt(event.target.value) || 0; // 횟수 입력
+    const total = price * quantity * 1.1; // 가격 * 횟수 + 부가세 10%
+    row.cells[5].textContent = total.toLocaleString(); // 6열 합계 업데이트
+  });
+});
+   // 좌측 체크박스 연동하여 우측 표 업데이트
 document.querySelectorAll(".row-check").forEach((checkbox) => {
   checkbox.addEventListener("change", (event) => {
     const row = event.target.closest("tr");
     const rightTableBody = document.getElementById("rightTable").querySelector("tbody");
 
     if (checkbox.checked) {
-      const clonedRow = row.cloneNode(true);
-
-      // 우측 테이블에서 횟수 입력 필드 동작 추가
-      const qtyInput = clonedRow.cells[2].querySelector(".qty-input");
-      if (qtyInput) {
-        qtyInput.addEventListener("input", (e) => {
-          const quantity = parseInt(e.target.value) || 1;
-          const price = parseInt(clonedRow.cells[1].textContent.replace(/,/g, ""));
-          clonedRow.cells[3].textContent = (price * quantity).toLocaleString();
-          updateFinalTotal(); // 최종 금액 업데이트
-        });
-      }
-
-      rightTableBody.appendChild(clonedRow);
+      const clonedRow = row.cloneNode(true); // 행 복사
+      clonedRow.querySelector(".qty-input").addEventListener("input", (e) => {
+        const quantity = parseInt(e.target.value) || 0;
+        const price = parseInt(clonedRow.cells[3].textContent.replace(/,/g, ""));
+        const total = price * quantity * 1.1;
+        clonedRow.cells[5].textContent = total.toLocaleString();
+        updateFinalTotal(); // 최종 금액 업데이트
+      });
+      rightTableBody.appendChild(clonedRow); // 우측 테이블에 추가
     } else {
-      // 체크 해제 시 우측 행 삭제
+      // 체크 해제 시 우측 테이블에서 삭제
       Array.from(rightTableBody.rows).forEach((rightRow) => {
-        if (rightRow.cells[0].textContent === row.cells[0].textContent) {
+        if (rightRow.cells[2].textContent === row.cells[2].textContent) {
           rightTableBody.removeChild(rightRow);
         }
       });
     }
 
-    updateFinalTotal(); // 최종 금액 다시 계산
+    updateFinalTotal(); // 최종 금액 재계산
   });
 });
 
+
     // 최종 결제 금액 업데이트
-   function updateFinalTotal() {
+  function updateFinalTotal() {
   const rightTableBody = document.getElementById("rightTable").querySelector("tbody");
   const finalTotalElement = document.getElementById("finalTotal");
 
   let total = 0;
   Array.from(rightTableBody.rows).forEach((rightRow) => {
-    const qtyInput = rightRow.cells[2].querySelector(".qty-input");
+    const qtyInput = rightRow.cells[4].querySelector(".qty-input");
     if (qtyInput) {
-      const quantity = parseInt(qtyInput.value);
-      const price = parseInt(rightRow.cells[1].textContent.replace(/,/g, ""));
-      total += price * quantity;
+      const quantity = parseInt(qtyInput.value) || 0;
+      const price = parseInt(rightRow.cells[3].textContent.replace(/,/g, ""));
+      total += price * quantity * 1.1; // 부가세 포함 금액 계산
     }
   });
   finalTotalElement.textContent = `최종 결제 금액: ${total.toLocaleString()}원`;
