@@ -1,76 +1,144 @@
-<div class="container" style="height: calc(100vh - 140px);">
-  <div class="left" style="overflow-y: auto; height: 100%;">
-    <h3>99이벤트</h3>
-    <div class="row">
-      <span class="heart-btn" onclick="toggleHeart(this)">&#9825;</span>
-      <input type="checkbox" onchange="addToCart(this, '써마지 FLX 리프팅 300샷', 990000)" />
-      <span style="text-align: left;">써마지 FLX 리프팅 300샷</span>
-      <span class="price" style="text-align: right;">990,000원</span>
-      <input type="number" value="1" min="1" style="width: 50px; text-align: right;" onchange="updateCart('써마지 FLX 리프팅 300샷')" />
-    </div>
-    <div class="row">
-      <span class="heart-btn" onclick="toggleHeart(this)">&#9825;</span>
-      <input type="checkbox" onchange="addToCart(this, '리쥬란힐러 2cc 체험가', 99000)" />
-      <span style="text-align: left;">리쥬란힐러 2cc 체험가</span>
-      <span class="price" style="text-align: right;">99,000원</span>
-      <input type="number" value="1" min="1" style="width: 50px; text-align: right;" onchange="updateCart('리쥬란힐러 2cc 체험가')" />
+
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>velyB 클리닉</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet" />
+  <style>
+    body { font-family: 'Noto Sans KR', sans-serif; margin: 0; background: #fff; color: #303030; }
+    .top-bar { display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; }
+    .date-time { font-size: 13px; white-space: pre-line; }
+    .logo img { height: 40px; }
+    .icons { display: flex; gap: 14px; }
+    .icons img { width: 22px; height: 22px; cursor: pointer; }
+    header { background: #FFAEC9; padding: 12px; }
+    .menu-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 6px; }
+    .menu-button { background: white; color: #303030; border: none; border-radius: 20px; padding: 6px 12px; font-size: 13px; cursor: pointer; }
+    .container { padding: 20px; display: flex; gap: 20px; }
+    .left, .right { flex: 1; border: 2px solid #FFAEC9; border-radius: 16px; padding: 20px; }
+    .right { border-width: 6px; }
+    .heart-btn { cursor: pointer; color: #ccc; font-size: 18px; }
+    .heart-btn.liked { color: #FFAEC9; }
+    .row { display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #eee; padding: 8px 0; }
+    .right .row { flex-direction: column; align-items: flex-start; }
+    .subtotal { text-align: right; font-weight: bold; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <div class="top-bar">
+    <div class="date-time" id="datetime">-</div>
+    <div class="logo"><img src="logo.png" alt="velyB logo" /></div>
+    <div class="icons">
+      <img src="list.png" alt="list" />
+      <img src="love.png" alt="love" />
+      <img src="today.png" alt="today" />
+      <a href="https://github.com/teletobin" target="_blank"><img src="settings.png" alt="settings" /></a>
     </div>
   </div>
-  <div class="right" style="overflow-y: auto; height: 100%;">
-    <h3>시술목록</h3>
-    <div id="cart"></div>
-    <div class="subtotal" id="total">총 결제금액 <strong>0원</strong></div>
+
+  <header>
+    <div class="menu-row">
+      <button class="menu-button">99이벤트</button>
+      <button class="menu-button">꽃봄혜택</button>
+      <button class="menu-button">첫시술 이벤트</button>
+      <button class="menu-button">여성제모</button>
+      <button class="menu-button">남성제모</button>
+      <button class="menu-button">보톡스</button>
+      <button class="menu-button">필러</button>
+      <button class="menu-button">다이어트</button>
+    </div>
+    <div class="menu-row">
+      <button class="menu-button">레이저</button>
+      <button class="menu-button">피부트러블</button>
+      <button class="menu-button">리프팅</button>
+      <button class="menu-button">실리프팅</button>
+      <button class="menu-button">부스터시술</button>
+      <button class="menu-button">피부관리</button>
+      <button class="menu-button">수액주사</button>
+      <button class="menu-button">기타</button>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="left">
+      <h3>99이벤트</h3>
+      <div class="row">
+        <span class="heart-btn" onclick="this.classList.toggle('liked')">&#9825;</span>
+        <input type="checkbox" onchange="addToCart(this, '써마지 FLX', 990000)" />
+        <span>써마지 FLX</span>
+        <span>990,000원</span>
+        <input type="number" value="1" min="1" style="width:40px;" />
+      </div>
+    </div>
+    <div class="right">
+      <h3>📝 시술목록</h3>
+      <div id="cart"></div>
+      <div class="subtotal" id="total">총 결제금액 <strong>0원</strong></div>
+    </div>
   </div>
-</div>
 
-<script>
-  function toggleHeart(btn) {
-    btn.innerHTML = btn.innerHTML === "&#9825;" ? "&#9829;" : "&#9825;";
-    btn.style.color = btn.innerHTML === "&#9829;" ? "#303030" : "#ccc";
-    btn.classList.toggle("liked");
-  }
-
-  function addToCart(checkbox, name, price) {
-    const cart = document.getElementById("cart");
-    if (checkbox.checked) {
-      const item = document.createElement("div");
-      item.className = "row";
-      item.setAttribute("data-name", name);
-      item.innerHTML = `
-        <div>${name}</div>
-        <div>합계: ${(price * 1.1).toLocaleString()}원 (부가세 포함)</div>`;
-      cart.appendChild(item);
-      recalcTotal();
-    } else {
-      const el = document.querySelector(`#cart .row[data-name='${name}']`);
-      if (el) el.remove();
-      recalcTotal();
+  <script>
+    function updateDateTime() {
+      const now = new Date();
+      const days = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+      const yyyy = now.getFullYear();
+      const mm = String(now.getMonth() + 1).padStart(2, '0');
+      const dd = String(now.getDate()).padStart(2, '0');
+      const day = days[now.getDay()];
+      let hours = now.getHours();
+      const ampm = hours >= 12 ? '오후' : '오전';
+      hours = hours % 12 || 12;
+      const mins = String(now.getMinutes()).padStart(2, '0');
+      document.getElementById('datetime').innerText = `${yyyy}-${mm}-${dd} ${day}
+${ampm} ${hours}:${mins}`;
     }
-  }
 
-  function updateCart(name) {
-    const rows = document.querySelectorAll("#cart .row");
-    rows.forEach((row) => {
-      if (row.getAttribute("data-name") === name) {
-        const price = row.getAttribute("data-price");
-        const qty = document.querySelector(`input[type="number"][onchange="updateCart('${name}')"]`).value;
-        row.querySelector(".subtotal").innerText = `합계: ${(
-          price *
-          qty *
-          1.1
-        ).toLocaleString()}원 (부가세 포함)`;
+    function addToCart(checkbox, name, price) {
+      const cart = document.getElementById('cart');
+      if (checkbox.checked) {
+        const item = document.createElement('div');
+        item.className = 'row';
+        item.setAttribute('data-name', name);
+        item.innerHTML = `
+          <div>
+            <input type="checkbox" checked onclick="removeFromCart(this, '${name}')">
+            ${name} <input type="number" value="1" min="1" style="width:40px;" onchange="recalcTotal()" />
+          </div>
+          <div class="subtotal">합계: ${Math.round(price * 1.1).toLocaleString()}원 (부가세 포함)</div>
+        `;
+        cart.appendChild(item);
+        recalcTotal();
+      } else {
+        const el = document.querySelector("#cart .row[data-name='" + name + "']");
+        if (el) el.remove();
+        recalcTotal();
       }
-    });
-    recalcTotal();
-  }
+    }
 
-  function recalcTotal() {
-    const rows = document.querySelectorAll("#cart .row");
-    let total = 0;
-    rows.forEach((row) => {
-      const subtotal = row.innerText.match(/([\d,]+)원/);
-      if (subtotal) total += parseInt(subtotal[1].replace(/,/g, ""));
-    });
-    document.getElementById("total").innerHTML = `총 결제금액 <strong>${total.toLocaleString()}원</strong>`;
-  }
-</script>
+    function removeFromCart(box, name) {
+      if (!box.checked) {
+        const el = document.querySelector("#cart .row[data-name='" + name + "']");
+        if (el) el.remove();
+        recalcTotal();
+      }
+    }
+
+    function recalcTotal() {
+      const rows = document.querySelectorAll('#cart .row');
+      let total = 0;
+      rows.forEach(row => {
+        const qty = row.querySelector('input[type=number]').value;
+        const priceText = row.querySelector('.subtotal').innerText.match(/([\d,]+)원/);
+        if (priceText) total += parseInt(priceText[1].replace(/,/g, ''));
+      });
+      document.getElementById('total').innerHTML = `총 결제금액 <strong>${total.toLocaleString()}원</strong>`;
+    }
+
+    updateDateTime();
+    setInterval(updateDateTime, 60000);
+  </script>
+</body>
+</html>
