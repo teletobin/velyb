@@ -95,7 +95,7 @@
       border: 6px solid #FFAEC9; /* 우측 테두리 */
     }
 h2 {
-  font-size: 16px; /* 제목 글씨 크기 줄이기 */
+  font-size: 18px; /* 제목 글씨 크기 줄이기 */
   margin: 0; /* 여백 제거 */
   padding: 1px 0; /* 상하 최소 패딩 */
   text-align: left; /* 좌측 정렬 */
@@ -355,16 +355,31 @@ function updateFinalTotal() {
     const checkbox = rightRow.querySelector(".row-check");
     
     // ✅ 우측 표에 복사된 행에도 체크박스가 있다면 그것이 체크되어 있을 때만 합산
-    if (!checkbox || checkbox.checked) {
-      const sumCellText = rightRow.cells[5].textContent.replace(/,/g, "").trim();
-      const sumCell = parseInt(sumCellText, 10);
-      if (!isNaN(sumCell)) {
-        total += sumCell;
-      }
-    }
-  });
+   if (checkbox.checked) {
+  const clonedRow = row.cloneNode(true);
 
-  finalTotalElement.textContent = `최종 결제 금액: ${total.toLocaleString()}원`;
+  // ✅ [여기 추가!] 복제된 체크박스에도 change 이벤트 추가해줘야 작동함!
+  const clonedCheckbox = clonedRow.querySelector(".row-check");
+  if (clonedCheckbox) {
+    clonedCheckbox.addEventListener("change", updateFinalTotal);
+  }
+
+  // 우측 테이블에서 횟수 입력 필드 동작 추가
+  const qtyInput = clonedRow.querySelector(".qty-input");
+  if (qtyInput) {
+    qtyInput.addEventListener("input", (e) => {
+      const quantity = parseInt(e.target.value) || 1;
+      const price = parseInt(clonedRow.cells[3].textContent.replace(/,/g, ""));
+      const total = price * quantity * 1.1;
+      clonedRow.cells[5].textContent = total.toLocaleString();
+      updateFinalTotal();
+    });
+  }
+
+  rightTableBody.appendChild(clonedRow);
+}
+
+  finalTotalElement.textContent = `최종 결제금액: ${total.toLocaleString()}원`;
 }
 
   </script>
