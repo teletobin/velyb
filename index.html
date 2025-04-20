@@ -353,14 +353,20 @@ function updateFinalTotal() {
   let total = 0;
   Array.from(rightTableBody.rows).forEach((rightRow) => {
     const checkbox = rightRow.querySelector(".row-check");
-    if (checkbox && checkbox.checked) {
-      const sumCell = parseInt(rightRow.cells[5].textContent.replace(/,/g, "")); // 6열 합계
-      total += sumCell;
+    
+    // ✅ 우측 표에 복사된 행에도 체크박스가 있다면 그것이 체크되어 있을 때만 합산
+    if (!checkbox || checkbox.checked) {
+      const sumCellText = rightRow.cells[5].textContent.replace(/,/g, "").trim();
+      const sumCell = parseInt(sumCellText, 10);
+      if (!isNaN(sumCell)) {
+        total += sumCell;
+      }
     }
   });
 
   finalTotalElement.textContent = `최종 결제 금액: ${total.toLocaleString()}원`;
 }
+
 
 
   </script>
