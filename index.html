@@ -229,16 +229,17 @@
         <tr>
           <th>시술명</th>
           <th>가격</th>
-          <th>횟수</th>
+          <th></th>
           <th>합계</th>
         </tr>
       </thead>
       <tbody>
         <!-- 체크된 항목 표시 -->
       </tbody>
-    </table>
+  </table>
+      <div class="final-total" id="finalTotal">최종 결제 금액: 0원</div>
+    </div>
   </div>
-</div>
 
   <script>
     // 하트 클릭 시 색 변경 기능
@@ -249,8 +250,8 @@
       });
     });
   </script>
-    <script>
-    // 좌측 체크박스 행 연동 및 우측 테이블 업데이트
+   <script>
+    // 횟수 수정 및 합계 자동 계산
     document.querySelectorAll(".qty-input").forEach((input) => {
       input.addEventListener("input", (event) => {
         const row = event.target.closest("tr");
@@ -260,6 +261,7 @@
       });
     });
 
+    // 좌측 체크박스 행 연동 및 우측 테이블 업데이트
     document.querySelectorAll(".row-check").forEach((checkbox) => {
       checkbox.addEventListener("change", (event) => {
         const row = event.target.closest("tr");
@@ -281,7 +283,9 @@
         // 최종 결제 금액 계산
         let total = 0;
         Array.from(rightTableBody.rows).forEach((rightRow) => {
-          total += parseInt(rightRow.cells[3].textContent.replace(/,/g, ""));
+          const quantity = parseInt(rightRow.cells[2].querySelector(".qty-input").value);
+          const price = parseInt(rightRow.cells[1].textContent.replace(/,/g, ""));
+          total += price * quantity;
         });
         finalTotalElement.textContent = `최종 결제 금액: ${total.toLocaleString()}원`;
       });
