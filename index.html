@@ -140,9 +140,27 @@ td:nth-child(4), td:nth-child(5), td:nth-child(6) {
 }
 
 .qty-input {
-  width: 15px; /* 최소화된 너비 */
+  width: 20px; /* 최소화된 너비 */
   text-align: center; /* 숫자 중앙 정렬 */
 }
+   .final-total-wrapper {
+  text-align: right; /* 텍스트 오른쪽 정렬 */
+  margin-top: 10px;
+  position: relative;
+}
+
+.final-line {
+  background-color: #FFAEC9; /* 핑크색 줄 색상 */
+  height: 3px; /* 줄의 굵기 */
+  width: 100%; /* 컨테이너 너비에 맞추기 */
+  margin-bottom: 3px; /* 최종 결제 금액과의 간격 */
+}
+
+.final-total {
+  font-weight: bold; /* 굵은 글씨 */
+  font-size: 15px; /* 글씨 크기 */
+}
+
   </style>
 </head>
 <body>
@@ -239,21 +257,24 @@ td:nth-child(4), td:nth-child(5), td:nth-child(6) {
   <div class="right">
     <h2>시술목록</h2>
     <table id="rightTable">
-      <thead>
+          <thead>
         <tr>
+          <th> </th>
+          <th> </th>
           <th>시술명</th>
           <th>가격</th>
-          <th></th>
+          <th> </th>
           <th>합계</th>
         </tr>
       </thead>
-      <tbody>
+         <tbody>
         <!-- 체크된 항목 표시 -->
       </tbody>
   </table>
-      <div class="final-total" id="finalTotal">최종 결제 금액: 0원</div>
-    </div>
-  </div>
+<div class="final-total-wrapper">
+  <div class="final-line"></div>
+  <div class="final-total" id="finalTotal">최종 결제 금액: 0원</div>
+</div>
 
   <script>
     // 하트 클릭 시 색 변경 기능
