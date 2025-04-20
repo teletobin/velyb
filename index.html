@@ -22,17 +22,6 @@
     header { background: #FFAEC9; padding: 12px; }
     .menu-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 6px; }
     .menu-button { background: white; color: #303030; border: none; border-radius: 20px; padding: 6px 12px; font-size: 13px; cursor: pointer; }
-    .container { padding: 20px; display: flex; gap: 20px; }
-    .left, .right { flex: 1; border: 2px solid #FFAEC9; border-radius: 16px; padding: 20px; max-height: 400px; overflow-y: auto; }
-    .right { border-width: 6px; }
-    .heart-btn { cursor: pointer; font-size: 18px; color: #ccc; }
-    .heart-btn.liked { color: #FFAEC9; content: '❤'; } /* 꽉 찬 핑크색 하트 */
-    .row { display: flex; align-items: center; gap: 10px; padding: 8px 0; justify-content: space-between; }
-    .row .procedure-name { text-align: left; flex: 1; }
-    .row .price { text-align: right; width: 80px; }
-    .row input[type="number"] { width: 40px; text-align: center; }
-    .subtotal, .final-total { text-align: right; font-weight: bold; margin-top: 10px; }
-    .final-total { margin-top: 20px; }
   </style>
 </head>
 <body>
@@ -76,18 +65,18 @@
       margin: 0;
       background: #fff;
       color: #303030;
-      font-size: calc(16px + 0.5vw); /* 화면 너비에 따른 글씨 크기 조정 */
+      font-size: calc(11px + 0.5vw); /* 화면 너비에 따른 글씨 크기 조정 */
     }
 
     .container {
       display: flex;
-      gap: 20px;
+      gap: 10px;
       padding: 20px;
     }
 
     .left, .right {
       flex: 1;
-      border: 2px solid #FFAEC9;
+      border: 5px solid #FFAEC9;
       border-radius: 16px;
       padding: 20px;
       max-height: 400px;
@@ -95,7 +84,7 @@
     }
 
     table {
-      width: 100%;
+      width: 80%;
       border-collapse: collapse;
     }
 
@@ -117,7 +106,7 @@
     /* 하트 스타일 */
     .heart-btn {
       cursor: pointer;
-      font-size: 18px;
+      font-size: 15px;
       color: #ccc;
     }
 
@@ -129,12 +118,12 @@
 <body>
  <div class="container">
   <div class="left">
-    <h2>시술 목록</h2>
+    <h2>99이벤트</h2>
     <table id="leftTable">
       <thead>
         <tr>
-          <th>하트</th>
-          <th>체크</th>
+          <th> </th>
+          <th> </th>
           <th>시술명</th>
           <th>가격</th>
           <th>횟수</th>
