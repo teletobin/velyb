@@ -131,6 +131,18 @@
     td:nth-child(4), td:nth-child(5), td:nth-child(6) {
       text-align: right; /* 가격, 횟수, 합계 오른쪽 정렬 */
     }
+   td:nth-child(3) {
+  text-align: left;
+}
+
+td:nth-child(4), td:nth-child(5), td:nth-child(6) {
+  text-align: right;
+}
+
+.qty-input {
+  width: 40px;
+  text-align: center;
+}
   </style>
 </head>
 <body>
@@ -154,7 +166,7 @@
           <td><input type="checkbox" class="row-check"></td>
           <td>포텐자 다이아 리프팅 500샷</td>
           <td>390,000</td>
-          <td>1</td>
+          <td><input type="number" class="qty-input" value="1" min="1" /></td>
           <td>429,000</td>
         </tr>
         <tr>
@@ -162,7 +174,7 @@
           <td><input type="checkbox" class="row-check"></td>
           <td>프라임레이즈 90KJ - 얼굴전체 체험가</td>
           <td>490,000</td>
-          <td>1</td>
+          <td><input type="number" class="qty-input" value="1" min="1" /></td>
           <td>539,000</td>
         </tr>
         <tr>
@@ -170,7 +182,7 @@
           <td><input type="checkbox" class="row-check"></td>
           <td>99E) 쥬베룩스킨 1cc+1cc</td>
           <td>99,000</td>
-          <td>1</td>
+          <td><input type="number" class="qty-input" value="1" min="1" /></td>
           <td>108,900</td>
         </tr>
         <tr>
@@ -178,7 +190,7 @@
           <td><input type="checkbox" class="row-check"></td>
           <td>리쥬란힐러(PN 프리미엄 스킨부스터) 2cc 체험가</td>
           <td>99,000</td>
-          <td>1</td>
+          <td><input type="number" class="qty-input" value="1" min="1" /></td>
           <td>108,900</td>
         </tr>
         <tr>
@@ -186,7 +198,7 @@
           <td><input type="checkbox" class="row-check"></td>
           <td>리제반PN 2cc 체험가</td>
           <td>99,000</td>
-          <td>1</td>
+          <td><input type="number" class="qty-input" value="1" min="1" /></td>
           <td>108,900</td>
         </tr>
         <tr>
@@ -194,7 +206,7 @@
           <td><input type="checkbox" class="row-check"></td>
           <td>제네시스 레이저 체험가</td>
           <td>5,000</td>
-          <td>1</td>
+          <td><input type="number" class="qty-input" value="1" min="1" /></td>
           <td>5,500</td>
         </tr>
         <tr>
@@ -202,7 +214,7 @@
           <td><input type="checkbox" class="row-check"></td>
           <td>레이저토닝 체험가</td>
           <td>2,900</td>
-          <td>1</td>
+          <td><input type="number" class="qty-input" value="1" min="1" /></td>
           <td>3,190</td>
         </tr>
         <tr>
@@ -210,7 +222,7 @@
           <td><input type="checkbox" class="row-check"></td>
           <td>레블라이트SI 토닝+ 진정관리 체험가</td>
           <td>29,000</td>
-          <td>1</td>
+          <td><input type="number" class="qty-input" value="1" min="1" /></td>
           <td>31,900</td>
         </tr>
         <tr>
@@ -218,7 +230,7 @@
           <td><input type="checkbox" class="row-check"></td>
           <td>모공쏙쏙 수분촉촉 한정가(아쿠아필+크라이오셀+물광앰플+LED레이저+모델링팩)</td>
           <td>25,000</td>
-          <td>1</td>
+          <td><input type="number" class="qty-input" value="1" min="1" /></td>
           <td>27,500</td>
         </tr>
       </tbody>
@@ -265,47 +277,55 @@
     });
 
     // 좌측 체크박스 연동하여 우측 표 업데이트
-    document.querySelectorAll(".row-check").forEach((checkbox) => {
-      checkbox.addEventListener("change", (event) => {
-        const row = event.target.closest("tr");
-        const rightTableBody = document.getElementById("rightTable").querySelector("tbody");
-        const finalTotalElement = document.getElementById("finalTotal");
+document.querySelectorAll(".row-check").forEach((checkbox) => {
+  checkbox.addEventListener("change", (event) => {
+    const row = event.target.closest("tr");
+    const rightTableBody = document.getElementById("rightTable").querySelector("tbody");
 
-        if (checkbox.checked) {
-          const clonedRow = row.cloneNode(true);
-          clonedRow.querySelector(".qty-input").addEventListener("input", (e) => {
-            const quantity = parseInt(e.target.value);
-            const price = parseInt(clonedRow.cells[1].textContent.replace(/,/g, ""));
-            clonedRow.cells[3].textContent = (price * quantity).toLocaleString();
+    if (checkbox.checked) {
+      const clonedRow = row.cloneNode(true);
 
-            updateFinalTotal();
-          });
-          rightTableBody.appendChild(clonedRow);
-        } else {
-          Array.from(rightTableBody.rows).forEach((rightRow) => {
-            if (rightRow.cells[0].textContent === row.cells[0].textContent) {
-              rightTableBody.removeChild(rightRow);
-            }
-          });
+      // 우측 테이블에서 횟수 입력 필드 동작 추가
+      const qtyInput = clonedRow.cells[2].querySelector(".qty-input");
+      if (qtyInput) {
+        qtyInput.addEventListener("input", (e) => {
+          const quantity = parseInt(e.target.value) || 1;
+          const price = parseInt(clonedRow.cells[1].textContent.replace(/,/g, ""));
+          clonedRow.cells[3].textContent = (price * quantity).toLocaleString();
+          updateFinalTotal(); // 최종 금액 업데이트
+        });
+      }
+
+      rightTableBody.appendChild(clonedRow);
+    } else {
+      // 체크 해제 시 우측 행 삭제
+      Array.from(rightTableBody.rows).forEach((rightRow) => {
+        if (rightRow.cells[0].textContent === row.cells[0].textContent) {
+          rightTableBody.removeChild(rightRow);
         }
-
-        updateFinalTotal();
       });
-    });
+    }
+
+    updateFinalTotal(); // 최종 금액 다시 계산
+  });
+});
 
     // 최종 결제 금액 업데이트
-    function updateFinalTotal() {
-      const rightTableBody = document.getElementById("rightTable").querySelector("tbody");
-      const finalTotalElement = document.getElementById("finalTotal");
+   function updateFinalTotal() {
+  const rightTableBody = document.getElementById("rightTable").querySelector("tbody");
+  const finalTotalElement = document.getElementById("finalTotal");
 
-      let total = 0;
-      Array.from(rightTableBody.rows).forEach((rightRow) => {
-        const quantity = parseInt(rightRow.cells[2].querySelector(".qty-input").value);
-        const price = parseInt(rightRow.cells[1].textContent.replace(/,/g, ""));
-        total += price * quantity;
-      });
-      finalTotalElement.textContent = `최종 결제 금액: ${total.toLocaleString()}원`;
+  let total = 0;
+  Array.from(rightTableBody.rows).forEach((rightRow) => {
+    const qtyInput = rightRow.cells[2].querySelector(".qty-input");
+    if (qtyInput) {
+      const quantity = parseInt(qtyInput.value);
+      const price = parseInt(rightRow.cells[1].textContent.replace(/,/g, ""));
+      total += price * quantity;
     }
+  });
+  finalTotalElement.textContent = `최종 결제 금액: ${total.toLocaleString()}원`;
+}
   </script>
 </body>
 </html>
