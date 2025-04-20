@@ -342,24 +342,14 @@ function updateFinalTotal() {
 
   let total = 0;
   Array.from(rightTableBody.rows).forEach((rightRow) => {
-    const checkbox = rightRow.querySelector(".row-check");
-    if (checkbox && checkbox.checked) {
-      const sumCell = parseInt(rightRow.cells[5].textContent.replace(/,/g, "")); // 6열 합계
+    const sumCell = parseInt(rightRow.cells[5].textContent.replace(/,/g, "")); // 6열 합계
+    if (!isNaN(sumCell)) {
       total += sumCell;
     }
   });
 
-  finalTotalElement.textContent = 최종 결제 금액: ${total.toLocaleString()}원;
+  finalTotalElement.textContent = `최종 결제 금액: ${total.toLocaleString()}원`;
 }
-
-  finalTotalElement.textContent = `최종 결제 금액: ${total.toLocaleString()}원`; // ← 여기 백틱(``) 빠졌었어
-}
-
-// 체크박스 누를 때 함수가 작동하게 연결해주는 코드 ↓↓↓
-document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll(".row-check").forEach((checkbox) => {
-    checkbox.addEventListener("change", updateFinalTotal);
-  });
 
   </script>
 </body>
