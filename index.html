@@ -94,12 +94,11 @@
     .right {
       border: 5px solid #FFAEC9; /* 우측 테두리 */
     }
-    h2 {
-      font-size: 15px; /* 컨테이너 타이틀 글씨 크기 줄이기 */
-      margin: 1; /* 여백 제거 */
-      padding-bottom: 5px; /* 최소 여백 유지 */
-      text-align: left;
-    }
+   h2 {
+  font-size: 15px; /* 제목 글씨 크기 */
+  margin-bottom: 2px; /* 제목과 표 사이 간격 최소화 */
+  text-align: left;
+}
 
     table {
       width: 100%;
@@ -304,14 +303,13 @@ document.querySelectorAll(".qty-input").forEach((input) => {
     row.cells[5].textContent = total.toLocaleString(); // 6열 합계 업데이트
   });
 });
-   // 좌측 체크박스 연동하여 우측 표 업데이트
-document.querySelectorAll(".row-check").forEach((checkbox) => {
+  document.querySelectorAll(".row-check").forEach((checkbox) => {
   checkbox.addEventListener("change", (event) => {
     const row = event.target.closest("tr");
     const rightTableBody = document.getElementById("rightTable").querySelector("tbody");
 
     if (checkbox.checked) {
-      const clonedRow = row.cloneNode(true); // 행 복사
+      const clonedRow = row.cloneNode(true);
       clonedRow.querySelector(".qty-input").addEventListener("input", (e) => {
         const quantity = parseInt(e.target.value) || 0;
         const price = parseInt(clonedRow.cells[3].textContent.replace(/,/g, ""));
@@ -319,7 +317,7 @@ document.querySelectorAll(".row-check").forEach((checkbox) => {
         clonedRow.cells[5].textContent = total.toLocaleString();
         updateFinalTotal(); // 최종 금액 업데이트
       });
-      rightTableBody.appendChild(clonedRow); // 우측 테이블에 추가
+      rightTableBody.appendChild(clonedRow);
     } else {
       // 체크 해제 시 우측 테이블에서 삭제
       Array.from(rightTableBody.rows).forEach((rightRow) => {
