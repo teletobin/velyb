@@ -66,12 +66,34 @@
     <div class="left">
       <h3>99이벤트</h3>
       <div class="row">
-        <span class="heart-btn" onclick="this.classList.toggle('liked')">&#9825;</span>
-        <input type="checkbox" onchange="addToCart(this, '써마지 FLX', 990000)" />
-        <span>써마지 FLX</span>
-        <span>990,000원</span>
-        <input type="number" value="1" min="1" style="width:40px;" />
-      </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; border: 1px solid #ccc; padding: 10px;">
+  <!-- 왼쪽 정렬: 하트, 체크박스, 시술명 -->
+  <div style="display: flex; align-items: center; gap: 10px;">
+    <span class="heart-btn" onclick="this.classList.toggle('liked')">&#9825;</span>
+    <input type="checkbox" onchange="addToCart(this, '써마지 FLX', 990000)" />
+    <span>써마지 FLX</span>
+  </div>
+
+  <!-- 오른쪽 정렬: 가격과 수량 -->
+  <div style="display: flex; align-items: center; gap: 10px;">
+    <span>990,000원</span>
+    <input type="number" value="1" min="1" style="width: 40px;" />
+  </div>
+</div>
+
+<script>
+  // 하트 버튼 클릭 시 상태 변경을 위한 간단한 토글 기능
+  document.querySelectorAll('.heart-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      this.classList.toggle('liked');
+    });
+  });
+
+  function addToCart(checkbox, name, price) {
+    // 여기에 장바구니 추가 로직 추가
+    console.log(name + " 추가됨, 가격: " + price);
+  }
+</script>
     </div>
     <div class="right">
       <h3>📝 시술목록</h3>
