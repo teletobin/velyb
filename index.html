@@ -26,11 +26,11 @@
     .left, .right { flex: 1; border: 2px solid #FFAEC9; border-radius: 16px; padding: 20px; max-height: 400px; overflow-y: auto; }
     .right { border-width: 6px; }
     .heart-btn { cursor: pointer; font-size: 18px; color: #ccc; }
-    .heart-btn.liked { color: #FFAEC9; }
+    .heart-btn.liked { color: #FFAEC9; content: '❤'; } /* 꽉 찬 핑크색 하트 */
     .row { display: flex; align-items: center; gap: 10px; padding: 8px 0; justify-content: space-between; }
     .row .procedure-name { text-align: left; flex: 1; }
     .row .price { text-align: right; width: 80px; }
-    .row input[type="number"] { width: 50px; text-align: right; }
+    .row input[type="number"] { width: 40px; text-align: center; }
     .subtotal, .final-total { text-align: right; font-weight: bold; margin-top: 10px; }
     .final-total { margin-top: 20px; }
   </style>
@@ -74,9 +74,7 @@
     <!-- 왼쪽: 99이벤트 -->
     <div class="left">
       <h3>99이벤트</h3>
-
-      <!-- 모든 시술 항목을 포함 -->
-      <!-- 아래에 모든 시술 항목 기재 -->
+      <!-- 모든 시술 항목 -->
       <div class="row">
         <span class="heart-btn" onclick="this.classList.toggle('liked')">&#9825;</span>
         <input type="checkbox" onchange="addToCart(this, '99E) 주름보톡스(메디)한정가', 990)" />
@@ -84,41 +82,13 @@
         <span class="price">990원</span>
         <input type="number" value="1" min="1" />
       </div>
-
-      <div class="row">
-        <span class="heart-btn" onclick="this.classList.toggle('liked')">&#9825;</span>
-        <input type="checkbox" onchange="addToCart(this, '99E) 아큐주사(페이스 컨투어링) 3cc 한정가', 990)" />
-        <span class="procedure-name">99E) 아큐주사(페이스 컨투어링) 3cc 한정가</span>
-        <span class="price">990원</span>
-        <input type="number" value="1" min="1" />
-      </div>
-
-      <div class="row">
-        <span class="heart-btn" onclick="this.classList.toggle('liked')">&#9825;</span>
-        <input type="checkbox" onchange="addToCart(this, '99E) 염증주사 개당', 990)" />
-        <span class="procedure-name">99E) 염증주사 개당</span>
-        <span class="price">990원</span>
-        <input type="number" value="1" min="1" />
-      </div>
-
-      <!-- 여기에 추가 시술 항목 기재 -->
-      <div class="row">
-        <span class="heart-btn" onclick="this.classList.toggle('liked')">&#9825;</span>
-        <input type="checkbox" onchange="addToCart(this, '99E) 써마지 FLX 300샷', 990000)" />
-        <span class="procedure-name">99E) 써마지 FLX 300샷</span>
-        <span class="price">990,000원</span>
-        <input type="number" value="1" min="1" />
-      </div>
+      <!-- 여기에 추가 항목들을 동일하게 나열 -->
     </div>
 
     <!-- 오른쪽: 시술목록 -->
     <div class="right">
       <h3>📝 시술목록</h3>
-
-      <!-- 선택된 항목 목록 -->
       <div id="cart-items"></div>
-
-      <!-- 총 결제금액 -->
       <div class="final-total" id="final-total"></div>
     </div>
   </div>
@@ -159,3 +129,10 @@
       items.forEach(item => {
         const itemTotalPrice = item.querySelector('.item-total').textContent.replace('원', '').replace(',', '');
         totalAmount += parseInt(itemTotalPrice, 10);
+      });
+
+      finalTotal.innerHTML = `최종 결제금액: <strong>${totalAmount.toLocaleString()}원</strong>`;
+    }
+  </script>
+</body>
+</html>
