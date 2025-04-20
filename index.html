@@ -344,10 +344,13 @@ function updateFinalTotal() {
   Array.from(rightTableBody.rows).forEach((rightRow) => {
     const checkbox = rightRow.querySelector(".row-check");
     if (checkbox && checkbox.checked) {
-      const sumCell = parseInt(rightRow.cells[5].textContent.replace(/,/g, ""));
+      const sumCell = parseInt(rightRow.cells[5].textContent.replace(/,/g, "")); // 6열 합계
       total += sumCell;
     }
   });
+
+  finalTotalElement.textContent = 최종 결제 금액: ${total.toLocaleString()}원;
+}
 
   finalTotalElement.textContent = `최종 결제 금액: ${total.toLocaleString()}원`; // ← 여기 백틱(``) 빠졌었어
 }
