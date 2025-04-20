@@ -320,22 +320,32 @@ document.querySelectorAll(".qty-input").forEach((input) => {
 
     if (checkbox.checked) {
       const clonedRow = row.cloneNode(true);
-      clonedRow.querySelector(".qty-input").addEventListener("input", (e) => {
-        const quantity = parseInt(e.target.value) || 0;
-        const price = parseInt(clonedRow.cells[3].textContent.replace(/,/g, ""));
-        const total = price * quantity * 1.1;
-        clonedRow.cells[5].textContent = total.toLocaleString();
-        updateFinalTotal(); // 최종 금액 업데이트
-      });
+
+      // 우측 테이블에서 횟수 입력 필드 동작 추가
+      const qtyInput = clonedRow.querySelector(".qty-input");
+      if (qtyInput) {
+        qtyInput.addEventListener("input", (e) => {
+          const quantity = parseInt(e.target.value) || 1;
+          const price = parseInt(clonedRow.cells[3].textContent.replace(/,/g, ""));
+          const total = price * quantity * 1.1; // 가격 * 횟수 + 부가세 10%
+          clonedRow.cells[5].textContent = total.toLocaleString();
+          updateFinalTotal(); // 최종 금액 업데이트
+        });
+      }
+
       rightTableBody.appendChild(clonedRow);
     } else {
-      // 체크 해제 시 우측 테이블에서 삭제
+      // 체크 해제 시 우측 테이블에서 행 삭제
       Array.from(rightTableBody.rows).forEach((rightRow) => {
         if (rightRow.cells[2].textContent === row.cells[2].textContent) {
           rightTableBody.removeChild(rightRow);
         }
       });
     }
+
+    updateFinalTotal(); // 최종 금액 재계산
+  });
+});
 function updateFinalTotal() {
   const rightTableBody = document.getElementById("rightTable").querySelector("tbody");
   const finalTotalElement = document.getElementById("finalTotal");
